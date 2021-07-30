@@ -9,13 +9,8 @@ path = r"C:\Users\Mariano\Documents\curso pyton\chromedriver.exe"
 options = webdriver.ChromeOptions() 
 options.add_experimental_option("excludeSwitches", ["enable-logging"])
 ########################  CODE  ##############################
-mensaje1=(input("""decime un titulo de neflix: """))
-# if mensaje1 == 1:
-#     serie_o_peli = "netflix series"
-#     mensaje2 = input("que serie queres que te diga ?: ")    
-# elif mensaje1 == 2:
-#     serie_o_peli = "netflix pelicula"
-#     mensaje2 = input("que peli queres que te diga ?: ")    
+mensaje1=(input("""decime un titulo de neflix: """)) 
+
 browser = webdriver.Chrome(options=options, executable_path = path)
 
 browser.get("https://www.google.com/")
