@@ -9,7 +9,7 @@ path = r"C:\Users\Mariano\Documents\curso pyton\chromedriver.exe"
 options = webdriver.ChromeOptions() 
 options.add_experimental_option("excludeSwitches", ["enable-logging"])
 ########################  CODE  ##############################
-mensaje1=(input("""decime un titulo de neflix: """)) 
+mensaje1=(input("""decime un titulo de neflix: """))
 
 browser = webdriver.Chrome(options=options, executable_path = path)
 
@@ -29,6 +29,9 @@ primer_div.find_element_by_tag_name("a").click()
 lista_sections = browser.find_elements_by_class_name("nmtitle-section")[-4]
 
 if "Episodios" in lista_sections.text:
+    serie = browser.find_element_by_class_name("title-info")
+    nombre_serie = serie.find_element_by_class_name("title-title")
+    sinopsis = serie.find_element_by_class_name("title-info-synopsis")
     def BuscarEpisodios():
         for capitulo in lista_episode:
             titulito = capitulo.find_element_by_class_name("episode-title").text
@@ -46,11 +49,8 @@ if "Episodios" in lista_sections.text:
     try:
         lista_episode = browser.find_elements_by_class_name("episode")
         container_temporadas = browser.find_element_by_id("undefined-select")
-        lista_temporadas = container_temporadas.find_elements_by_tag_name("option")
-        serie = browser.find_element_by_class_name("title-info")
-        nombre_serie = serie.find_element_by_class_name("title-title")
-        sinopsis = serie.find_element_by_class_name("title-info-synopsis")
-        f = open("netflix.txt","a") 
+        lista_temporadas = container_temporadas.find_elements_by_tag_name("option")      
+        f = open(f"series.txt","a") 
         f.write(f"""
         Titulo:  {nombre_serie.text}
 
@@ -74,21 +74,28 @@ if "Episodios" in lista_sections.text:
         browser.quit()
     except:   
         lista_episode = browser.find_elements_by_class_name("episode")
-        f = open("netflix.txt","a") 
+        f = open("series.txt","a") 
+        f.write(f"""
+        Titulo:  {nombre_serie.text}
+
+        Sinopsis:   {sinopsis.text}
+
+        ------------------------------------------------------------\n""")        
         BuscarEpisodios()
         f.close
         browser.quit()
 else: 
-    f = open("netflix.txt","") 
+    f = open("peliculas.txt","a") 
     pelicula = browser.find_element_by_class_name("title-info")
     nombre_pelicula = pelicula.find_element_by_class_name("title-title")
-    f.write(f"{nombre_pelicula.text}")
+    f.write(f"Titulo: {nombre_pelicula.text}\n")
     
     sinopsis = pelicula.find_element_by_class_name("title-info-synopsis")
-    f.write(f"{sinopsis.text}")
+    f.write(f"Sinopsis: {sinopsis.text}\n")
 
     prot_y_dir = pelicula.find_element_by_class_name("title-info-talent")
-    f.write(f"{prot_y_dir.text}")
+    f.write(f"""{prot_y_dir.text}
+    ---------------------------------------------------------------\n""")
 
 
     browser.quit()
