@@ -10,13 +10,16 @@ options = webdriver.ChromeOptions()
 options.add_experimental_option("excludeSwitches", ["enable-logging"])
 ########################  CODE  ##############################
 mensaje1=(input("""decime un titulo de neflix: """))
+
 browser = webdriver.Chrome(options=options, executable_path = path)
 browser.get("https://www.google.com/")
+
 input_buscador_xpath="/html/body/div[1]/div[3]/form/div[1]/div[1]/div[1]/div/div[2]/input"
 input_buscador = browser.find_element_by_xpath(input_buscador_xpath)
 input_buscador.send_keys(f"{mensaje1} netflix site:www.netflix.com")
 input_buscador.send_keys(Keys.RETURN)
 time.sleep(3)
+
 busqueda = browser.find_element_by_id("rso")
 primer_div = busqueda.find_element_by_tag_name("div")
 primer_div.find_element_by_tag_name("a").click()
@@ -38,6 +41,7 @@ if "Episodios" in lista_sections.text:
             {synopsis}
             ------------------------------------------------------------\n""")
     time.sleep(2)
+    
     try:
         lista_episode = browser.find_elements_by_class_name("episode")
         container_temporadas = browser.find_element_by_id("undefined-select")
