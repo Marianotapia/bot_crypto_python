@@ -61,4 +61,4 @@ async def por(ctx, a: float, message=None):
 async def clear (ctx, amount=5):
     await ctx.channel.purge(limit=amount)
 ################## Token ##################
-bot.run("ODczODM3Nzg5NTEzNDE2NzE0.YQ-O3A.9vpeDoIXy19-eHNHAKnT1qMlBRQ")
+bot.run("TOKEN")
